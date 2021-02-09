@@ -1,4 +1,5 @@
 <template>
+  <vue3-progress-bar />
   <div
     class="container "
     style="position: fixed; 
@@ -67,6 +68,11 @@
 
 <script>
 export default {
+  created() {
+    if (this.$store.state.jwt !== 's') {
+      this.loged = true;
+    }
+  },
   data() {
     return {
       username: '',
@@ -74,6 +80,7 @@ export default {
       loged: false
     };
   },
+
   methods: {
     async login() {
       let u = this.username;
@@ -90,7 +97,7 @@ export default {
         if (user[i].pass == p && user[i].username == u) {
           this.$store.state.jwt = user[i].jwt;
           console.log(this.$store.state.jwt);
-          this.$router.push(this.$store.state.stt);
+          this.$router.push({ name: this.$store.state.stt });
           this.loged = true;
           break;
         }
@@ -99,12 +106,7 @@ export default {
     async logout() {
       this.$store.state.jwt = 's';
       console.log(this.$store.state.jwt);
-      this.$route.push('/about');
-    }
-  },
-  created() {
-    if (this.$store.state.jwt !== 's') {
-      this.loged = true;
+      this.$route.push({ name: 'Login' });
     }
   }
 };

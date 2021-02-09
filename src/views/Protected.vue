@@ -6,8 +6,8 @@
 export default {
   async beforeCreate() {
     //let u = 'no';
-    this.$store.state.stt = this.$route.fullPath;
-    this.$route.fullPath;
+    this.$store.state.stt = 'Protected';
+
     let user = await this.axios
       .get('http://localhost:3000/users')
       .then(response => {
@@ -21,8 +21,7 @@ export default {
         return;
       }
     }
-
-    this.$router.push('/about');
+    this.$router.push({ name: 'Login' });
   },
   data() {
     return {
