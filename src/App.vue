@@ -1,5 +1,4 @@
 <template>
-  <vue3-progress-bar />
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/login">About</router-link>|
@@ -8,16 +7,18 @@
   <router-view />
   <vue-progress-bar></vue-progress-bar>
 </template>
-
 <script>
 export default {
-  mounted() {
-    //  [App.vue specific] When App.vue is finish loading finish the progress bar
-    this.$Progress.finish();
+  async create() {
+    await setTimeout(function() {
+      this.$Progress.finish();
+    }, 1000);
   },
-  created() {
+
+  beforeCreated() {
     //  [App.vue specific] When App.vue is first loaded start the progress bar
     this.$Progress.start();
+
     //  hook the progress bar to start before we move router-view
     this.$router.beforeEach((to, from, next) => {
       //  does the page we want to go to have a meta.progress object
@@ -39,7 +40,6 @@ export default {
   }
 };
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

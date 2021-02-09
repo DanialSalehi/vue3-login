@@ -1,6 +1,7 @@
 <template>
-  <vue3-progress-bar />
+  <div v-if="!loaded"></div>
   <div
+    v-else
     class="container "
     style="position: fixed; 
   top: 20%;
@@ -56,9 +57,7 @@
         <div class="overlay-panel overlay-right">
           <h1>Hello, Friend!</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-            eleifend felis a arcu finibus eleifend. Vestibulum urna ante,
-            ultrices sagittis dui id, fermentum vestibulum velit
+            {{ title }}
           </p>
         </div>
       </div>
@@ -68,6 +67,20 @@
 
 <script>
 export default {
+  beforeCreate() {
+    this.$Progress.start();
+  },
+  async beforeMount() {
+    await setTimeout(() => {
+      this.$Progress.finish();
+      this.title =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam \n eleifend felis a arcu finibus eleifend. Vestibulum urna ante,\n ultrices sagittis dui id fermentum vestibulum velit';
+
+      this.loaded = true;
+    }, 1000);
+  },
+  components: {},
+  mounted() {},
   created() {
     if (this.$store.state.jwt !== 's') {
       this.loged = true;
@@ -77,12 +90,15 @@ export default {
     return {
       username: '',
       password: '',
-      loged: false
+      loged: false,
+      loaded: false,
+      title: 'Loding...'
     };
   },
 
   methods: {
     async login() {
+      this.$Progress.start();
       let u = this.username;
       let p = this.password;
       if (this.username === '' || this.password === '') {
@@ -97,10 +113,15 @@ export default {
         if (user[i].pass == p && user[i].username == u) {
           this.$store.state.jwt = user[i].jwt;
           console.log(this.$store.state.jwt);
-          this.$router.push({ name: this.$store.state.stt });
+
           this.loged = true;
+          this.$Progress.finish();
+          this.$router.push({ name: this.$store.state.stt });
           break;
         }
+      }
+      if (!this.loged) {
+        this.$Progress.fail();
       }
     },
     async logout() {
