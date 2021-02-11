@@ -2,12 +2,36 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import Protected from '../views/Protected.vue';
+import Notepad from '../views/Notepad.vue';
+import Chart1 from '../views/Chart1.vue';
+import Chart2 from '../views/Chart2.vue';
+import Chart3 from '../views/Chart3.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/BarChart',
+    name: 'BarChart',
+    component: Chart1
+  },
+  {
+    path: '/DoughnutChart',
+    name: 'DoughnutChart',
+    component: Chart2
+  },
+  {
+    path: '/LineChart',
+    name: 'LineChart',
+    component: Chart3
+  },
+  {
+    path: '/Notepad',
+    name: 'Notepad',
+    component: Notepad
   },
   {
     path: '/Protected',
