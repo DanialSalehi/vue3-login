@@ -2,7 +2,11 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/login">About</router-link>|
-    <router-link to="/Protected">Protected</router-link>
+    <router-link to="/Protected">Protected</router-link>|
+    <router-link to="/Notepad">Notepad</router-link>|
+    <router-link to="/DoughnutChart">DoughnutChart</router-link>|
+    <router-link to="/LineChart">LineChart</router-link>|
+    <router-link to="/BarChart">BarChart</router-link>
   </div>
   <router-view />
   <vue-progress-bar></vue-progress-bar>
